@@ -29,12 +29,27 @@ app.config.js
  
 更改 `DEVPORT` or  `ONLINEPORT`
 
-默认端口 3000
+默认端口 本地：3000  生产环境：3001
 
 
-测试接口 ： `localhost://${port}/api/test `
+测试接口页面 ： `localhost://${port}/api/test `
+
+测试接口 ：`localhost://${port}/api/testApi `
 
 
+### 部分中间件
+ - koa-parameter 用于参数校验，它是基于参数验证框架parameter, 给 koa 框架做的适配。
+    ```
+     ctx.verifyParams({
+        id: { type: "number", required: true }
+    })
+    ```
+ - koa-json-error 错误处理中间件，错误会默认抛出堆栈信息，在生产环境中，没必要返回给用户，在开发环境显示 
+    ```
+    app.use(error({
+        postFormat: (e, { stack, ...rest }) => process.env.NODE_ENV === "production" ? rest : { stack, ...rest }
+    }))
+    ```
 
 
 

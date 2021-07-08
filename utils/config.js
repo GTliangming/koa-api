@@ -42,6 +42,6 @@ exports.GITHUB = {
 
 //邮件发送
 exports.EMAIL = {
-    USER ="",
-    TOKENCODE=""
+    USERNAME: "",
+    TOKENCODE: ""
 }

@@ -14,5 +14,6 @@ const common = require('../controllers/common');
 
 /*  通用 ············· */
 router.get('/test', common.testPage)
+router.post('/testApi', common.testApi)
 
 module.exports = router

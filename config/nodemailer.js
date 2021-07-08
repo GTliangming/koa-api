@@ -11,7 +11,7 @@ const config = {
     host: 'smtp.163.com',
     port: 465,
     auth: {
-        user: CONFIG.EMAIL.USER, //注册的163邮箱账号
+        user: CONFIG.EMAIL.USERNAME , //注册的163邮箱账号
         pass: CONFIG.EMAIL.TOKENCODE //邮箱的授权码，不是注册时的密码,等你开启的stmp服务自然就会知道了
     }
 };
