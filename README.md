@@ -3,6 +3,7 @@ node server
 
 ## 目录结构
 
+```
 —— bin                  项目开始文件
 —— config               项目配置文件夹
 —— controllers          路由具体请求
@@ -11,7 +12,7 @@ node server
 —— routes               路由统一定义
 —— utils                工具文件夹
 —— views                通用页面
-
+```
 
 ## 本地开发
 
