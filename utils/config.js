@@ -11,13 +11,13 @@ const { argv } = require('yargs');
 
 
 // 线上数据库
-exports.MONGODB_ONLINE = {
+const MONGODB_ONLINE = {
     uri: `mongodb://xx`,
     username: "",
     password: "",
 };
 // 本地数据库
-exports.MONGODB_ONLINE = {
+const MONGODB_DEV = {
     uri: `mongodb://xx`,
     username: "",
     password: ""
@@ -25,7 +25,7 @@ exports.MONGODB_ONLINE = {
 
 
 // github第三方登录相关
-exports.GITHUB = {
+const GITHUB = {
     username: '',
     // 
     oauth_uri: 'https://github.com/login/oauth/authorize',
@@ -41,7 +41,14 @@ exports.GITHUB = {
 };
 
 //邮件发送
-exports.EMAIL = {
+const EMAIL = {
     USERNAME: "",
     TOKENCODE: ""
+}
+
+module.exports = {
+    GITHUB,
+    EMAIL,
+    MONGODB_ONLINE,
+    MONGODB_DEV
 }

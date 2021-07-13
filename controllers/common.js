@@ -1,6 +1,6 @@
 
 
-const utils = require("../utils")
+const {responseClient } = require("../utils")
 
 
 exports.testPage = async (ctx, next) => {
@@ -13,5 +13,5 @@ exports.testApi = async (ctx, next) => {
     ctx.verifyParams({
         id: { type: "number", required: true }
     })
-    utils.responseClient(ctx, 200, "测试成功!");
+    responseClient(ctx, 200, "测试成功!");
 }

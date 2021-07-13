@@ -5,14 +5,14 @@
 
  */
 const nodemailer = require('nodemailer');
-const CONFIG = require('../utils/config')
+const { EMAIL } = require('../utils/config')
 //创建一个smtp服务器
 const config = {
     host: 'smtp.163.com',
     port: 465,
     auth: {
-        user: CONFIG.EMAIL.USERNAME , //注册的163邮箱账号
-        pass: CONFIG.EMAIL.TOKENCODE //邮箱的授权码，不是注册时的密码,等你开启的stmp服务自然就会知道了
+        user: EMAIL.USERNAME, //注册的163邮箱账号
+        pass: EMAIL.TOKENCODE //邮箱的授权码，不是注册时的密码,等你开启的stmp服务自然就会知道了
     }
 };
 

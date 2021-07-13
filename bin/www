@@ -7,13 +7,13 @@
 var app = require('../app');
 var debug = require('debug')('demo:server');
 var http = require('http');
-const APPCONFIG = require("../app.config")
+const { ONLINEPORT, DEVPORT } = require("../app.config")
 const consola = require('consola')
 /**
  * Get port from environment and store in Express.
  */
 
-const Port = process.env.NODE_ENV === "production" ? APPCONFIG.ONLINEPORT : APPCONFIG.DEVPORT;
+const Port = process.env.NODE_ENV === "production" ? ONLINEPORT : DEVPORT;
 consola.success("node server run of port -----> ", Port);
 var port = normalizePort(Port);
 // app.set('port', port);
