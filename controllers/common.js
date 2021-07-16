@@ -1,17 +1,27 @@
 
 
-const {responseClient } = require("../utils")
+const { responseClient } = require("../utils")
 
 
-exports.testPage = async (ctx, next) => {
+const testPage = async (ctx, next) => {
     await ctx.render("view")
 }
 
-
-exports.testApi = async (ctx, next) => {
-    console.log(2222,ctx.request.body)
+const testApi = async (ctx, next) => {
+    console.log(2222, ctx.request.body)
     ctx.verifyParams({
         id: { type: "number", required: true }
     })
     responseClient(ctx, 200, "测试成功!");
+}
+
+const tryapi = async (ctx, nex) => {
+    console.log(3322)
+    ctx.body = { code: 111, msg: "xx" }
+}
+
+module.exports={
+    tryapi,
+    testApi,
+    testPage
 }

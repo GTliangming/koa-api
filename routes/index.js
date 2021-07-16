@@ -9,11 +9,15 @@ router.prefix('/api')
 
 
 
-const common = require('../controllers/common');
-
+const { testPage, testApi, tryapi } = require('../controllers/common');
+const { login } = require('../controllers/user');
 
 /*  通用 ············· */
-router.get('/test', common.testPage)
-router.post('/testApi', common.testApi)
+router.get('/test', testPage)
+router.post('/testApi', testApi)
+router.post('/try', tryapi)
+
+/*  通用 ············· */
+router.post('/login', login)
 
 module.exports = router

@@ -16,6 +16,8 @@ node server
 
 ## 本地开发
 
+node version >= 12
+
 ```
 npm install  || yarn (推荐)
 
@@ -31,7 +33,6 @@ app.config.js
 更改 `DEVPORT` or  `ONLINEPORT`
 
 默认端口 本地：3000  生产环境：3001
-
 
 测试接口页面 ： `localhost://${port}/api/test `
 

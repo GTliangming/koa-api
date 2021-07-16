@@ -14,9 +14,8 @@ const consola = require('consola')
  */
 
 const Port = process.env.NODE_ENV === "production" ? ONLINEPORT : DEVPORT;
-consola.success("node server run of port -----> ", Port);
+consola.success(" 😀 😀 😀 node server run of port 👉 👉 👉 ", Port);
 var port = normalizePort(Port);
-// app.set('port', port);
 
 /**
  * Create HTTP server.
