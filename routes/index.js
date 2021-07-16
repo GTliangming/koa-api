@@ -15,7 +15,7 @@ const { login } = require('../controllers/user');
 /*  通用 ············· */
 router.get('/test', testPage)
 router.post('/testApi', testApi)
-router.post('/try', tryapi)
+router.get('/try', tryapi)
 
 /*  通用 ············· */
 router.post('/login', login)

@@ -1,9 +1,6 @@
 const crypto = require("crypto");
-
-
-// 密码秘钥
-const MD5_SUFFIX = 'API-ADMIN_*'
-
+const { SECRET } = require("../app.config")
+const jwt = require("jsonwebtoken");
 // 密码加密
 const md5 = (pwd) => {
 	let md5 = crypto.createHash('md5');
@@ -16,7 +13,8 @@ const responseClient = async (ctx, code, message, data) => {
 		return ctx.body = {
 			code,
 			message,
-			data
+			data:data.data,
+			token:data.token
 		}
 	} else {
 		return ctx.body = {
@@ -46,10 +44,22 @@ const createSixNum = () => {
 	return codeNum;
 }
 
+// 生成TOKEN 
+const getToken = (key) => {
+	const token = jwt.sign(
+		{
+			name: key
+		},
+		SECRET, // secret
+		{ expiresIn: 60 * 60 } // 60 * 60 s
+	);
+	return token;
+}
+
 module.exports = {
 	createSixNum,
 	timestampToTime,
 	responseClient,
 	md5,
-	MD5_SUFFIX
+	getToken
 }

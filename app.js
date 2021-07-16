@@ -17,7 +17,7 @@ const cors = require('koa2-cors')
 //mongose文件引入
 const mongodb = require('./config/mongodb');
 //token mi秘钥
-// const { SECRET } = require("./app.config")
+const { SECRET } = require("./app.config")
 //将路由文件引入
 const index = require('./routes/index');
 
@@ -28,13 +28,21 @@ onerror(app)
 // mongodb.connect();
 
 // 解决跨域
-app.use(cors({
-  exposeHeaders: ['WWW-Authenticate', 'Server-Authorization', 'Date'],
-  maxAge: 100000,
-  credentials: true,
-  allowMethods: ['GET', 'POST', 'OPTIONS'],
-  allowHeaders: ['Content-Type', 'Authorization', 'Accept', 'X-Custom-Header', 'anonymous', 'Set-Cookie'],
-}))
+app.use(
+  cors({
+    origin: function (ctx) { //设置允许来自指定域名请求
+      if (ctx.url === '/test') {
+        return '*'; // 允许来自所有域名请求
+      }
+      return "http://localhost:3000"; //只允许http://localhost:8080这个域名的请求
+    },
+    maxAge: 5, //指定本次预检请求的有效期，单位为秒。
+    credentials: true, //是否允许发送Cookie
+    allowMethods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'], //设置所允许的HTTP请求方法
+    allowHeaders: ['Content-Type', 'Authorization', 'Accept','Origin','Content-Length'], //设置服务器支持的所有头信息字段
+    exposeHeaders: ['WWW-Authenticate', 'Server-Authorization'] //设置获取其他自定义字段
+  })
+);
 
 
 
@@ -56,6 +64,7 @@ app.use(views(__dirname + '/views', {
 
 // logger
 app.use(async (ctx, next) => {
+  console.log(ctx)
   const start = new Date()
   await next()
   const ms = new Date() - start
@@ -65,20 +74,20 @@ app.use(async (ctx, next) => {
 // 错误处理
 app.use((ctx, next) => {
   return next().catch((err) => {
-      if(err.status === 401){
-          ctx.status = 401;
-        ctx.body = 'Protected resource, use Authorization header to get access\n';
-      }else{
-          throw err;
-      }
+    if (err.status === 401) {
+      ctx.status = 401;
+      ctx.body = 'Protected resource, use Authorization header to get access\n';
+    } else {
+      throw err;
+    }
   })
 })
 
 // 注意：放在路由前面
 app.use(koajwt({
-  secret: 'Gopal_token'
+  secret: SECRET
 }).unless({ // 配置白名单
-  path: [/\/api\/register/, /\/api\/login/]
+  path: [/\/api\/register/, /\/api\/login/, /\/api\/try/]
 }))
 
 

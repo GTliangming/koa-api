@@ -32,7 +32,8 @@ app.config.js
  
 更改 `DEVPORT` or  `ONLINEPORT`
 
-默认端口 本地：3000  生产环境：3001
+默认端口 本地：3001  生产环境：3002
+> (避免与部分前端项目默认端口相同)
 
 测试接口页面 ： `localhost://${port}/api/test `
 
