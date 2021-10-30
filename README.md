@@ -1,5 +1,5 @@
 # api-admin
-node server
+koa node server
 
 ## 目录结构
 
