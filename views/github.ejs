@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GitHub 登录测试</title>
+    <script src="https://unpkg.com/react@16/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.20.1/moment.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/antd/3.0.2/antd.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/antd/3.0.2/antd.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <link rel="stylesheet" href="/stylesheets/style.css" />
+</head>
+
+<body>
+    <div id="app"></div>
+    <script type="text/babel">
+        class TestBox extends React.Component {
+            render = () => {
+                return (
+                    <div>
+                        <antd.Button
+                            type="primary"
+                            onClick={() => {
+                                window.open(`https://github.com/login/oauth/authorize?client_id=e2a1eaa9cf8f58c79077&redirect_url=http://www.netbugs.cn:3002/api/authorizeLogin`)
+                            }}
+                        >
+
+                            GitHub 登录
+                    </antd.Button>
+                    </div>
+                )
+            }
+        }
+        ReactDOM.render(<TestBox />,
+            document.getElementById('app'),
+        )
+    </script>
+</body>
+
+</html>

@@ -1,11 +1,179 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>接口测试</title>
+</head>
+<body>
+  
+  `${document.location.protocol}//${window.location.host}
+
+
+  <div>hahahha</div>
+</body>
+</html> -->
+ 
 <!DOCTYPE html>
 <html>
-  <head>
-    <title><%= title %></title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
-  </head>
-  <body>
-    <h1><%= title %></h1>
-    <p>EJS Welcome to <%= title %></p>
-  </body>
+<head>
+    <meta charset="UTF-8" />
+    <title>接口测试</title>
+    <script src="https://unpkg.com/react@16/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.20.1/moment.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/antd/3.0.2/antd.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/antd/3.0.2/antd.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script> 
+    <link rel="stylesheet" href="/stylesheets/style.css" />
+</head>
+<body>
+    <div id="app"></div>
+    <script type="text/babel">  
+        class TimeNow extends React.Component{
+            constructor(){
+                super();
+                this.state = {
+                    time: ''
+                }                
+            }
+            componentDidMount = () =>{
+                setInterval(()=>{
+                    var time = new Date().toLocaleString();
+                    this.setState({
+                        time
+                    });                    
+                }, 1000);
+            }           
+            render = () => {
+                const {time} = this.state;
+                return <div>时间：{time}</div>
+            }
+        }
+        class MessageBox extends React.Component{  
+            render = ()=>{  
+                return ( 
+                  <div>
+                    <h1>Hello World!</h1>
+                    <TimeNow />
+                  </div> )  
+            }  
+        }
+        class ReqBox extends React.Component{
+            state={
+              val:"",
+              Host:`${document.location.protocol}//${window.location.host}/api/`,
+              reqdate:"",
+              reqtype:"get",
+              responData:""
+            }
+            getValue(e){
+              this.setState({
+                val:e.target.value
+              })
+            }
+            ReqFun(){
+              const {val,Host,reqdate,reqtype} = this.state;
+              let Data;
+              if(val===""){
+                alert("请输入请求地址")
+                return
+              }
+              if(reqtype==="get"){
+                axios.get(Host+val)
+                  .then(result=>{
+                    this.setState({
+                      responData:JSON.stringify(result.data)
+                    }) 
+                  })
+              }else{
+                let reqDate;
+                try{
+                  reqDate = JSON.parse(reqdate)
+                }catch(err){
+                  alert(err)
+                  return
+                }
+                axios.post(Host+val,reqDate)
+                .then(result=>{
+                  this.setState({
+                    responData:JSON.stringify(result.data)
+                  })
+                }).catch(err=>{
+                  console.log(111,err)
+                })
+              }
+            }
+            getReqDate(e){
+              this.setState({
+                reqdate:e.target.value
+              })
+            }
+            getReqtype(e){
+              this.setState({
+                reqtype:e.target.value
+              })
+            }
+            render=()=>{
+              const {Host,responData,reqtype} = this.state;
+              return (
+                <div className="ReqBox">
+                    <h3>请求</h3>
+                    <div className="selectBox">
+                      <input type="radio" name="type" checked={true} id="get" value="get" onChange={(e)=>this.getReqtype(e)}/>
+                      <label className="selectItem" htmlFor="get">GET</label>
+                      <input type="radio" name="type" style={{marginLeft:"30px"}} id="post" value="post" onChange={(e)=>this.getReqtype(e)}/>
+                      <label className="selectItem" htmlFor="post">POST</label>
+                    </div>
+                      <div className="reqdate">
+                        <span className="ReqBoxLabel">请求参数：</span>
+                        <textarea  
+                          className="ReqArea" 
+                          rows="3" 
+                          cols="20"
+                          placeholder="请输入正确json结构" 
+                          onBlur={(e)=>this.getReqDate(e)}/>
+                    </div>
+                    <span className="ReqBoxLabel">请求地址：</span>
+                    <antd.Input addonBefore={Host} style={{width:"400px"}} onChange={e=>this.getValue(e)}/>
+                    <antd.Button
+                      style={{marginLeft:"3px"}}
+                      type="primary"
+                      onClick={()=>this.ReqFun()}
+                    >
+                      点击请求
+                    </antd.Button>
+                    <div className="responBox">
+                      <h3>请求结果</h3>
+                      <div>
+                        {responData}
+                      </div>
+                    </div>
+                    <img src="https://v1.jinrishici.com/rensheng.svg" />
+                    <antd.Button
+                    type="primary"
+                    onClick={()=>{
+                      window.open(`https://github.com/login/oauth/authorize?client_id=e2a1eaa9cf8f58c79077&redirect_url=http://localhost:3002/api/authorizeLogin`)
+                    }}
+                    >GitHub登录</antd.Button>
+                </div>
+              )
+            }
+        }
+        class TestBox extends React.Component{
+            render = ()=>{
+             return (
+                <div>
+                  <MessageBox />
+                  <ReqBox />
+                </div>
+             ) 
+            }
+        }
+        ReactDOM.render( <TestBox/>,  
+            document.getElementById('app'),
+        )
+    </script>
+</body>
 </html>
