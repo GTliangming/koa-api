@@ -12,5 +12,5 @@ RUN npm config set registry "https://registry.npm.taobao.org/" \
     && npm install -g npm husky \
     && npm install --production
 
-EXPOSE 7002
+EXPOSE 7003
 CMD ["node", "app.js"]
