@@ -42,14 +42,14 @@ app.use((req, res, next) => {
 // cookie parser
 app.use((req, res, next) => {
   req.cookies = {}
-  //;(req.headers.cookie || '').split(/\s*;\s*/).forEach((pair) => { //  Polynomial regular expression //
-  ;(req.headers.cookie || '').split(/;\s+|(?<!\s)\s+$/g).forEach((pair) => {
-    let crack = pair.indexOf('=')
-    if (crack < 1 || crack == pair.length - 1) return
-    req.cookies[decode(pair.slice(0, crack)).trim()] = decode(
-      pair.slice(crack + 1),
-    ).trim()
-  })
+    //;(req.headers.cookie || '').split(/\s*;\s*/).forEach((pair) => { //  Polynomial regular expression //
+    ; (req.headers.cookie || '').split(/;\s+|(?<!\s)\s+$/g).forEach((pair) => {
+      let crack = pair.indexOf('=')
+      if (crack < 1 || crack == pair.length - 1) return
+      req.cookies[decode(pair.slice(0, crack)).trim()] = decode(
+        pair.slice(crack + 1),
+      ).trim()
+    })
   next()
 })
 
@@ -135,7 +135,7 @@ fs.readdirSync(path.join(__dirname, 'module'))
     })
   })
 
-const port = process.env.PORT || 3000
+const port = process.env.PORT || 8003
 const host = process.env.HOST || ''
 
 app.server = app.listen(port, host, () => {
